@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nginx-test.fullname" . }}
+  name: {{ .Release.Name }}-deployment
   labels:
     app: {{ include "nginx-test.name" . }}
 spec:
@@ -14,7 +14,7 @@ spec:
       labels:
         app: {{ include "nginx-test.name" . }}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}        
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -22,4 +22,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
