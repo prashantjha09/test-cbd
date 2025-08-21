@@ -1,0 +1,51 @@
+# Number of replicas for app1
+replicaCount: 2
+
+# Image configuration
+image:
+  repository: nginx       
+  tag: "1.21.6"         
+  pullPolicy: IfNotPresent
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 80
+
+# Resource requests/limits
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+# Autoscaling (HPA)
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+# ConfigMap values (if your app needs configs)
+config:
+  APP_ENV: dev
+  LOG_LEVEL: debug
+
+# Secret values (example)
+secret:
+  enabled: false
+  data: 
+    username: admin
+    password: changeme
+
+# Pod annotations and labels
+podAnnotations: {}
+podLabels: {}
+
+# Node selector / tolerations / affinity
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
