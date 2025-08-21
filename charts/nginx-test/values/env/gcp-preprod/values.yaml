@@ -32,6 +32,7 @@ autoscaling:
 config:
   APP_ENV: dev
   LOG_LEVEL: debug
+  APP: test
 
 # Secret values (example)
 secret:
