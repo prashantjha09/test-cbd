@@ -1,5 +1,5 @@
 # Number of replicas for app1
-replicaCount: 3
+replicaCount: 2
 
 # Image configuration
 image:
